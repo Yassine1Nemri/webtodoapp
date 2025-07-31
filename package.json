@@ -1,0 +1,44 @@
+{
+  "name": "todo-devsecops-project",
+  "version": "1.0.0",
+  "description": "A Todo app demonstrating DevSecOps practices",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "npx http-server src/ -p 3000",
+    "test": "npm run test:unit && npm run test:security",
+    "test:unit": "jest tests/unit/",
+    "test:security": "npm run security:audit && npm run security:scan",
+    "security:audit": "npm audit --audit-level=moderate",
+    "security:scan": "npx retire --path src/",
+    "security:dependencies": "snyk test",
+    "lint": "eslint src/ --ext .js",
+    "lint:fix": "eslint src/ --ext .js --fix",
+    "build": "npm run lint && npm run test",
+    "docker:build": "docker build -f docker/Dockerfile -t todo-app .",
+    "docker:run": "docker run -p 3000:3000 todo-app",
+    "deploy": "echo 'Deploying to production...'",
+    "monitor": "node monitoring/health-check.js"
+  },
+  "keywords": ["todo", "devsecops", "security", "webapp"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "eslint": "^8.0.0",
+    "http-server": "^14.0.0",
+    "retire": "^4.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "helmet": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "security": {
+    "advisories": {
+      "ignore": []
+    }
+  }
+}
