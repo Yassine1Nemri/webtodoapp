@@ -10,7 +10,7 @@
     "test:security": "npm run security:audit && npm run security:scan",
     "security:audit": "npm audit --audit-level=moderate",
     "security:scan": "npx retire --path src/",
-    "security:dependencies": "snyk test",
+    "security:dependencies": "npx @cyclonedx/cyclonedx-npm --output-format JSON --output-file sbom.json",
     "lint": "eslint src/ --ext .js",
     "lint:fix": "eslint src/ --ext .js --fix",
     "build": "npm run lint && npm run test",
