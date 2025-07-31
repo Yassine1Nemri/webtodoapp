@@ -49,14 +49,13 @@ jobs:
         continue-on-error: true
 
       - name: OSV Scanner for Vulnerabilities
-        uses: google/osv-scanner-action@v1.7.4
-        with:
-          scan-args: |-
-            -r
-            --skip-git
-            --format json
-            --output osv-results.json
-            ./
+        run: |
+          echo "📥 Downloading OSV-Scanner..."
+          curl -sSfL https://github.com/google/osv-scanner/releases/download/v1.7.4/osv-scanner-linux-amd64 -o osv-scanner
+          chmod +x osv-scanner
+
+          echo "🔍 Running OSV-Scanner..."
+          ./osv-scanner --recursive --skip-git --format json --output osv-results.json ./
         continue-on-error: true
 
       - name: Check for hardcoded secrets
@@ -113,7 +112,7 @@ jobs:
           }' || true
 
       - name: Run Unit Tests
-        run: |
+        run: |  
           # Create basic test runner since we don't have Jest setup yet
           node -e "
           console.log('Running security tests...');
