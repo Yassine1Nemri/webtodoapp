@@ -34,7 +34,7 @@
     "retire": "^4.0.0"
   },
   "dependencies": {
-    "express": "^4.21.2",
+    "express": "^4.22.1",
     "helmet": "^7.0.0"
   },
   "engines": {
